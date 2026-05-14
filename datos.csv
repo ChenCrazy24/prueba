@@ -1,0 +1,7 @@
+Folio,Fecha,Categoria,Monto,Estatus
+A001,2024-05-14,Software,1500.00,Pagado
+A002,2024-05-15,Hardware,2500.50,Pendiente
+A003,2024-05-15,Software,500.00,Pagado
+A004,2024-05-16,Servicios,Error,Rechazado
+A005,2024-05-16,Hardware,1000.00,Pagado
+A001,2024-05-17,Software,200.00,Pendiente
