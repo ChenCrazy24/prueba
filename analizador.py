@@ -4,6 +4,7 @@ import json
 import tkinter as tk
 from tkinter import filedialog, messagebox, scrolledtext
 from datetime import datetime
+import sqlite3
 
 def procesar_csv(ruta_archivo):
     columnas_obligatorias = ['Folio', 'Fecha', 'Categoria', 'Monto', 'Estatus']
@@ -69,7 +70,38 @@ def procesar_csv(ruta_archivo):
     except Exception as e:
         return {"Error crítico": str(e)}
 
+def guardar_en_bd(resultados):
+    try:
+        conexion = sqlite3.connect('historial_analisis.db')
+        cursor = conexion.cursor()
+
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS analisis (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                fecha_ejecucion TEXT,
+                total_registros INTEGER,
+                suma_montos REAL,
+                resumen_json TEXT
+            )
+        ''')
+
+        fecha_ahora = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        total = resultados.get("Total de registros válidos", 0)
+        suma = resultados.get("Suma total de montos", 0.0)
+        json_completo = json.dumps(resultados, ensure_ascii=False)
+
+        cursor.execute('''
+            INSERT INTO analisis (fecha_ejecucion, total_registros, suma_montos, resumen_json)
+            VALUES (?, ?, ?, ?)
+        ''', (fecha_ahora, total, suma, json_completo))
+
+        conexion.commit()
+        conexion.close()
+    except Exception as e:
+        messagebox.showwarning("Advertencia BD", f"El resumen se generó pero no se guardó en BD: {e}")
+
 def seleccionar_archivo():
+    # Abrir explorador de archivos
     ruta_archivo = filedialog.askopenfilename(
         title="Seleccionar archivo de datos",
         filetypes=[("Archivos CSV", "*.csv")]
@@ -82,10 +114,18 @@ def seleccionar_archivo():
         texto_formateado = json.dumps(resultados, indent=4, ensure_ascii=False)
         caja_resultados.insert(tk.END, texto_formateado)
         
-        messagebox.showinfo("Éxito", "El archivo se procesó correctamente.")
+        # NUEVO: Condición para guardar en la base de datos si el archivo es estructuralmente válido
+        if "Error" not in resultados and "Error crítico" not in resultados:
+            guardar_en_bd(resultados)
+            mensaje = "El archivo se procesó y se guardó en la Base de Datos local."
+        else:
+            mensaje = "El archivo se procesó, pero se encontraron errores de estructura."
+            
+        # NUEVO: Pasamos la variable 'mensaje' en lugar del texto fijo
+        messagebox.showinfo("Proceso Terminado", mensaje)
         boton_exportar.config(state=tk.NORMAL)
 
-# Exportar resultados 
+# Exportar resultados
 def exportar_resultados():
 
     contenido = caja_resultados.get(1.0, tk.END).strip()
