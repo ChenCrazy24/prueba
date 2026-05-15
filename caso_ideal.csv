@@ -1,0 +1,5 @@
+Folio,Fecha,Categoria,Monto,Estatus
+OK01,2024-05-10,Software,1500.50,Pagado
+OK02,2024-05-11,Hardware,3200.00,Pendiente
+OK03,2024-05-12,Servicios,800.00,Pagado
+OK04,2024-05-13,Software,120.00,Cancelado
