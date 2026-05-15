@@ -9,7 +9,7 @@ Unittest: Framework nativo para la ejecución de pruebas unitarias automatizadas
 
 Funcionalidades y Validaciones
 El sistema procesa archivos .csv y realiza un riguroso control de calidad en tiempo real:
-*Validaciones Estructurales: Detección de archivos vacíos y comprobación de columnas obligatorias (Folio, Fecha, Categoria, Monto, Estatus).
+Validaciones Estructurales: Detección de archivos vacíos y comprobación de columnas obligatorias (Folio, Fecha, Categoria, Monto, Estatus).
 Integridad de Datos: Detección de folios duplicados, validación estricta de formato de fechas (AAAA-MM-DD) y comprobación de tipos de datos en montos numéricos.
 Filtrado Dinámico: Capacidad de filtrar los registros por Estatus y/o Categoría antes de procesar el resumen.
 
