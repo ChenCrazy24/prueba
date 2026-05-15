@@ -1,0 +1,5 @@
+Folio,Fecha,Categoria,Monto,Estatus
+ERR1,14-05-2024,Software,1500.50,Pagado
+ERR2,2024-05-11,Hardware,Mil Pesos,Pendiente
+ERR2,2024-05-12,Servicios,800.00,Pagado
+ERR4,2024-05-13,Software,120.00,Cancelado
