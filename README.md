@@ -31,6 +31,7 @@ caso_incompleto.csv: Archivo sin la estructura de encabezados correcta.
 2. Ejecutar Pruebas Unitarias
 Para verificar la integridad de las funciones mediante el entorno de pruebas, ejecuta:
 “python test_analizador.py”
+
 Decisiones Técnicas
 Se optó por una interfaz gráfica con Tkinter en lugar de una aplicación pura de consola para entregar un producto más cercano a un entorno real de servicio al cliente, priorizando la usabilidad sin requerir instalaciones complejas de terceros.
 Para cumplir con el almacenamiento en Base de Datos de manera eficiente, se utilizó SQLite. Esto elimina la fricción de configurar puertos o credenciales, permitiendo que la evaluación del código sea directa y sin configuraciones extra.
